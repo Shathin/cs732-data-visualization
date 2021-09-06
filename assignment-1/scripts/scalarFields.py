@@ -1,6 +1,13 @@
 #
 
-# ! CONSTANT_NAME = (column key, columns name, unit)
+# * CONSTANT_NAME : {
+#	"fieldType" : "given/derived",
+#	"accessor" : "column of the field in the file/DataFrame"
+#	"label" : "Name of the field",
+#	"unit" : "Unit of measurement",
+#	"colorMap" : "matplotlib color map",
+#	"dependentColumn": "The column on which this is dependent", 
+# }
 
 # * Data Set Columns
 

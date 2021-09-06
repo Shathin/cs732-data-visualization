@@ -5,7 +5,7 @@ import math
 
 # ! Custom
 from scalarFields import *
-from dataOps import getFiles, readDataSet, processDataSet, getGlobalMaximaAndMinima
+from dataOps import readDataSet, computeDerivedScalarFields, getGMaxMin
 
 
 def visualizeStatic(
@@ -16,8 +16,21 @@ def visualizeStatic(
     showGrid: bool = False,
     showFigure: bool = True,
     saveFigure: bool = False,
-    saveFile: str = "static-output.png",
+    saveFile: str = "static-output",
 ):
+    """
+    Creates a contour fill plot for all the `pandas.DataFrames` passed in as the argument.
+
+    Parameters:
+    - dataSet - A list of pandas.DataFrame that represent the dataset
+    - field - The field to be used as the 3rd dimension of the contour fill plot
+    - levels - Number of levels of contours
+    - colorMap - Color map to be used for the fills
+    - showGrid - Show grid lines on the figure
+    - showFigure - Show the plot in an interactive window
+    - saveFigure - Save the figure to a file
+    - saveFile - The save file name to be used
+    """
     # * Define the X and Y co-ordinate range
     X: list[int] = numpy.arange(0.0, 0.6, 0.001)
     Y: list[int] = numpy.arange(0.0, 0.248, 0.001)
@@ -77,6 +90,21 @@ def visualizeMoving(
     fps: int = 24,
     repeat: bool = True,
 ):
+    """
+    Creates a moving (animated) contour fill plot for all the `pandas.DataFrames` passed in as the argument.
+
+    Parameters:
+    - dataSet - A list of pandas.DataFrame that represent the dataset
+    - field - The field to be used as the 3rd dimension of the contour fill plot
+    - levels - Number of levels of contours
+    - colorMap - Color map to be used for the fills
+    - showGrid - Show grid lines on the figure
+    - showFigure - Show the plot in an interactive window
+    - saveFigure - Save the figure to a file
+    - saveFile - The save file name to be used
+    - fps - The frames per second to be used in GIF file
+    - repeat - Whether the animation must repeat while being showing in the interactive mode
+    """
     # * Define the X and Y co-ordinate range
     X: list[int] = numpy.arange(0.0, 0.6, 0.001)
     Y: list[int] = numpy.arange(0.0, 0.248, 0.001)
@@ -160,10 +188,23 @@ def visualize(
     fps: int = 24,
     repeat: bool = True,
 ):
-    # * Compute levels based on the global values of the field in the data set
+    """
+    Wrapper method that performs a commong action before calling the `visualizeStatic()` or `visualizeMoving()` based on the parameters passed.
 
+    Parameters:
+    - dataSet - A list of pandas.DataFrame that represent the dataset
+    - field - The field to be used as the 3rd dimension of the contour fill plot
+    - animated - Determines which type of plot to be show i.e., static or animated
+    - levels - Number of levels of contours
+    - colorMap - Color map to be used for the fills
+    - showGrid - Show grid lines on the figure
+    - showFigure - Show the plot in an interactive window
+    - saveFigure - Save the figure to a file
+    - saveFile - The save file name to be used
+    """
+    # * Compute levels based on the global values of the field in the data set
     # * Get global max & min of the field in the data set
-    gMax, gMin = getGlobalMaximaAndMinima(dataSet=dataSet, field=field)
+    gMax, gMin = getGMaxMin(dataSet=dataSet, field=field)
 
     # * Determine levels
     levels = numpy.linspace(gMin, gMax, levels)
@@ -199,34 +240,28 @@ def visualize(
 
 if __name__ == "__main__":
     print("*** Getting file names 🗃️")
-    # timestepRange=[0, 49, 99, 149, 199],
-    # timestepRange=[99],
-    # timestepRange=range(0, 200, 10),
-    # timestepRange=range(0, 200),
-    timestepRange = [
-        0,
-        1,
-        2,
-        3,
-        6,
-        9,
-        14,
-        19,
-        29,
-        49,
-        69,
-        99,
-        129,
-        159,
-        189,
-    ]
-    path: str = "../data/extracted/scalar"
 
-    files: str = getFiles(timestepRange=timestepRange, path=path)
+    # timestepRange=[99]
+    # timestepRange=range(0, 200, 10)
+    timestepRange = [1, 2, 3, 6, 9, 14, 19, 29, 49, 69, 99, 129, 159, 189]
+
+    path: str = "./data/extracted/scalar"
+
+    files: list[str] = [
+        rf"{path}/multifield.{'{:04d}'.format(timestep)}.zslice.txt"
+        for timestep in timestepRange
+    ]
 
     print("*** Setting field 🎲")
-    field = GAS_TEMPERATURE
 
+    field = GAS_TEMPERATURE
+    # field = TOTAL_PARTICLE_DENSITY
+    # field = H_NUMBER_DENSITY
+    # field = H_MINUS_NUMBER_DENSITY
+    # field = H_PLUS_NUMBER_DENSITY
+
+    print()
+    print(f"*** Field:  {field['label']}")
     print("*** Setting parameters 🛠️")
     animated: bool = True
     levels: int = 15
@@ -234,7 +269,7 @@ if __name__ == "__main__":
     showGrid: bool = False
     showFigure: bool = False
     saveFigure: bool = True
-    saveFile: str = f"../outputs/{field['label']}"
+    saveFile: str = f"./outputs/{field['label']}"
     fps: str = 5
     repeat: bool = True
 
@@ -261,7 +296,10 @@ if __name__ == "__main__":
             ],
         )
 
-        dataSet = processDataSet(dataSet=dataSet, field=field)
+        dataSet = computeDerivedScalarFields(
+            dataSet=dataSet,
+            fields=[field],
+        )
 
     visualize(
         dataSet=dataSet,

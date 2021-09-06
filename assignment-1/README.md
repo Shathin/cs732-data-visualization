@@ -11,12 +11,12 @@ Assignment document: **CS732-DV_Assignment-1.pdf**
 ## Running the scripts
 All the scripts can be found under the **scripts** directory. 
 
-- Input files : The program expects an already sliced data set. Modify the `make_zslices.tcsh` file to help with the preprocessing of the data.
+- Input files : The program expects an already sliced data set. Modify the `*_make_zslices.tcsh` file to help with the preprocessing of the data.
 - `dataOps.py` → Contains methods that reads and processes the data
 - `formulae.py` → Contains the different scalar formulae that can be applied on the fields in the dataset
 - `scalarFields.py` → A configuration file that defines each of the given scalar fields and the derived fields. Each field is a dictionary containing different attributes that define the properties of the field.
 - `scalarVisualization.py` → The python script that reads and visualizes the desired scalar field from the data set. The file contains scripts for both static and animated visualizations.
-
+- `vectorVisualization.py` →  The python script that reads and visualizes the Curl of the Velocity from the vector data set. The file contains method for generating a static quiver plot.
 
 Execute the `scalarVisualization.py` to generate the visualizations. The parameters to the visualization can be changed by modifying the values of the paramter variables.
 - `timestepRange` - The time step range which determines which fields to be read. The files name default to the format multifield.{timestep}.zslice.txt". This can changed in the `getFiles()` method in the `dataOps.py` file.
@@ -33,11 +33,13 @@ Execute the `scalarVisualization.py` to generate the visualizations. The paramet
 
 To modify the color for a field or other properties of a field go to the `scalarFields.py` file and modify the appropriate dictionary. 
 
+Similar is the execution of the `vectorVisualizaion.py`
 ---
 
 
 ## Visualizations
 
-Check the **outputs** directory for the generated visualizations.
+Check the [**outputs**](./outputs) directory for the generated visualizations.
 
-Check the **Report.pdf** for the techincal report of this assignment. You can also read it on [Notion](https://shathin.notion.site/Assignment-1-IEEE-Visualization-2008-Design-Contest-3182fa8dc0f049c3abfbc28aa1336eb2).
+Check the [**Report.pdf**](./Report.pdf) for the techincal report of this assignment. You can also read it on [Notion](https://shathin.notion.site/Assignment-1-IEEE-Visualization-2008-Design-Contest-3182fa8dc0f049c3abfbc28aa1336eb2).
+
