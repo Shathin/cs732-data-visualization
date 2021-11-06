@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>D3 Treemap - AH Sickle Cell Disease</title>
+  <link rel="stylesheet" href="../../styles.css" />
+</head>
+
+<body>
+  <div class="header">
+    <b>
+      Treemap using
+      <a href="http://d3js.org/">D3</a></b>
+    <hr />
+  </div>
+  <div id="app">
+
+    <div class="controls" style="display: inline;">
+      <span>Choose Treemap Style ➡️</span> &nbsp;
+      <input type="radio" name="treemap-style" id="treemap-choice-1" value="nested" checked>
+      <label for="treemap-choice-1">Nested Treemap</label>
+      &nbsp; &nbsp;
+      <input type="radio" name="treemap-style" id="treemap-choice-2" value="zoomable">
+      <label for="treemap-choice-2">Zoomable Treemap</label>
+      &nbsp; &nbsp; &nbsp; &nbsp;
+      <label for="value-field-selector">Choose the value field</label>
+      &nbsp;
+      <select id="value-field-selector"></select>
+    </div>
+
+  </div>
+  </div>
+  <div class="footer">
+    <hr />
+    <footer>
+      This is a visualization of the
+      <b><a href="https://catalog.data.gov/dataset/ah-sickle-cell-disease-provisional-death-counts-2019-2020-3e71c">AH
+          Sickle Cell Disease</a></b>
+      data set from <a href="https://catalog.data.gov/">Data.Gov</a>
+    </footer>
+  </div>
+  <script src="https://unpkg.com/d3@7.1.1/dist/d3.js"></script>
+  <script src="./scripts/app.js" type="module"></script>
+</body>
+
+</html>

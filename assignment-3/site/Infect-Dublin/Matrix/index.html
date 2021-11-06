@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>D3 Network - Infect Dublin</title>
+  <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <div class="header">
+    <b>
+      Co-occurence Matrix using <a href="http://d3js.org/">D3</a></b>
+    <hr />
+  </div>
+  <div id="app">
+    <div id="order-by-container">
+      <div>
+        <label for="source-select">Order Source Nodes By</label> &nbsp;
+        <select id="source-select">
+          <option value="person">Person</option>
+          <option value="incoming">No. of Incoming Links</option>
+          <option value="outgoing">No of Outgoing Links</option>
+          <option value="total">No. of Total Links</option>
+        </select>
+      </div>
+      <div>
+        <label for="target-select">Order Target Nodes By</label> &nbsp;
+        <select id="target-select">
+          <option value="person">Person</option>
+          <option value="incoming">No. of Incoming Links</option>
+          <option value="outgoing">No of Outgoing Links</option>
+          <option value="total">No. of Total Links</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <hr />
+    <footer>
+      This is a visualization of the
+      <b><a href="https://networkrepository.com/infect-dublin.php">Infect Dublin</a></b>
+      data set from
+      <a href="https://networkrepository.com">Network Repository</a>
+    </footer>
+  </div>
+  <script src="https://unpkg.com/d3@7.1.1/dist/d3.js"></script>
+  <script src="./scripts/app.js" type="module"></script>
+</body>
+
+</html>
